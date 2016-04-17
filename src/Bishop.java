@@ -3,12 +3,9 @@ import static java.lang.System.out;
 public class Bishop extends ChessPiece 
 {
   //Constructor for a bishop.
-  Bishop(char c, int rownum, int colnum)
+  Bishop(char color, int rownum, int colnum)
   {
-    super(c);
-    kind = 'B';
-    row = rownum;
-    col = colnum;
+    super('B', color, rownum, colnum);
   }
   public int getNumberOfMoves(final ChessBoard board, final boolean printMoves)
   {

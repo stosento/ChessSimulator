@@ -100,23 +100,30 @@ public class ChessBoard
   
   //Purpose: Returns true if the coordinate given to it is valid (in bounds).
   //Arguments: row, col
-  public boolean checkValidCoord(final int rowNum, final int colNum)
+  public boolean isInbounds(final int rowNum, final int colNum)
   {
-    if (rowNum >= 0 && rowNum <= 7 && colNum >= 0 && colNum <= 7)
-      return true;
-    else
+    if (rowNum < 0 || rowNum > 7 || colNum < 0 || colNum > 7)
       return false;
+
+    return true;
+  }
+
+  private boolean isOccupied(final int destrow, final int destcol)
+  {
+    return board[destrow][destcol] == null ? false : true;
+  }
+
+  private boolean isDifferentColor(ChessPiece basepiece, final int destrow, final int destcol)
+  {
+    return board[destrow][destcol].color == basepiece.color ? false : true;
   }
   
   //Purpose: Returns true if the given location is a valid move for the piece
   //         given in the arguments.
   //Arguments: piece, row destination, col destination
-  public boolean checkValidMove(ChessPiece basepiece, 
-                                final int destrow, final int destcol
-                                )
+  public boolean checkValidMove(ChessPiece basepiece, final int destrow, final int destcol)
   {
-    if (checkValidCoord(destrow, destcol) && 
-       (board[destrow][destcol] == null || board[destrow][destcol].color != basepiece.color))
+    if (isInbounds(destrow, destcol) && (!isOccupied(destrow, destcol) || isDifferentColor(basepiece, destrow, destcol)))
     {
       s += printAdditional(destrow, destcol);
       return true;
@@ -126,11 +133,9 @@ public class ChessBoard
   
   //Purpose: Returns true if the given board location is empty.
   //Arugments: piece, row destination, col destination
-  public boolean checkValidEmpty(ChessPiece basepiece,
-                                 final int destrow, final int destcol
-                                 )
+  public boolean checkValidEmpty(ChessPiece basepiece, final int destrow, final int destcol)
   { 
-    if (checkValidCoord(destrow, destcol) && board[destrow][destcol] == null)
+    if (isInbounds(destrow, destcol) && !isOccupied(destrow, destcol))
     {
       s += printAdditional(destrow, destcol);
       return true; 
@@ -142,12 +147,9 @@ public class ChessBoard
 
   //Purpose: Returns true if the given location holds a piece of the opposite color.
   //Arguments: piece, row destination, col destination
-  public boolean checkValidCapture(ChessPiece basepiece,
-                                   int destrow, int destcol
-                                   )
+  public boolean checkValidCapture(ChessPiece basepiece, int destrow, int destcol)
 {
-  if (checkValidCoord(destrow, destcol) && 
-      board[destrow][destcol] != null && board[destrow][destcol].color != basepiece.color)
+  if (isInbounds(destrow, destcol) && isOccupied(destrow, destcol) && isDifferentColor(basepiece, destrow, destcol))
   {
     s += printAdditional(destrow, destcol);
     return true; 
@@ -163,7 +165,7 @@ public class ChessBoard
   //Arguments: row, col
   ChessPiece getPieceAt(final int row, final int col)
   {
-    if (checkValidCoord(row, col))
+    if (isInbounds(row, col))
       return board[row][col];
     else
     {
@@ -177,7 +179,7 @@ public class ChessBoard
   //Arguments: row, col
   public void removePiece(final int rowNum, final int colNum)
   {
-    if (checkValidCoord(rowNum, colNum))
+    if (isInbounds(rowNum, colNum))
     {
       board[rowNum][colNum] = null;
     }
@@ -195,7 +197,7 @@ public class ChessBoard
   //Arguments: pieceToPlace, rowNum, colNum
   public void placePiece(final ChessPiece pieceToPlace, final int rowNum, final int colNum)
   {
-    if (checkValidCoord(rowNum, colNum))
+    if (isInbounds(rowNum, colNum))
     {
       board[pieceToPlace.row][pieceToPlace.col] = null;
       

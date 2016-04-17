@@ -3,12 +3,9 @@ import static java.lang.System.out;
 public class Knight extends ChessPiece 
 {
   //Knight constructor
-  Knight(char c, int rownum, int colnum)
+  Knight(char color, int rownum, int colnum)
   {
-    super(c);
-    kind = 'N';
-    row = rownum;
-    col = colnum;
+    super('N', color, rownum, colnum);
   }
   
   public int getNumberOfMoves(final ChessBoard board, final boolean printMoves)

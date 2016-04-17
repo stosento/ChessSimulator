@@ -3,12 +3,9 @@ import static java.lang.System.out;
 public class Rook extends ChessPiece 
 {
   //Rook constructor
-  Rook(char c, int rownum, int colnum)
+  Rook(char color, int rownum, int colnum)
   {
-    super(c);
-    kind = 'R';
-    row = rownum;
-    col = colnum;
+    super('R', color, rownum, colnum);
   }
   
   public int getNumberOfMoves(final ChessBoard board, final boolean printMoves)

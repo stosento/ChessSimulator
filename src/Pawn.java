@@ -3,12 +3,9 @@ import static java.lang.System.out;
 public class Pawn extends ChessPiece 
 {
   //Pawn constructor
-  Pawn(char c, int rownum, int colnum)
+  Pawn(char color, int rownum, int colnum)
   {
-    super(c);
-    kind = 'P';
-    row = rownum;
-    col = colnum;
+    super('P', color, rownum, colnum);
   }
   
   public int getNumberOfMoves(final ChessBoard board, final boolean printMoves)

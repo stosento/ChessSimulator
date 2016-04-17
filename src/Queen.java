@@ -3,12 +3,9 @@ import static java.lang.System.out;
 public class Queen extends ChessPiece 
 {
   //Queen constructor
-  Queen(char c, int rownum)
+  Queen(char color, int rownum)
   {
-    super(c);
-    kind = 'Q';
-    col = 3;
-    row = rownum;
+    super('Q', color, rownum, 3);
   }
   
   public int getNumberOfMoves(final ChessBoard board, final boolean printMoves)

@@ -6,9 +6,12 @@ public abstract class ChessPiece
   boolean occupied;
   
   //Constructor
-  ChessPiece(char c)
+  ChessPiece(char kind, char color, int row, int col)
   {
-    color = c;
+    this.kind = kind;
+    this.color = color;
+    this.row = row;
+    this.col = col;
   }
   
   public abstract int getNumberOfMoves(final ChessBoard board, final boolean printMoves);
@@ -87,7 +90,7 @@ public abstract class ChessPiece
     //Move DOWN and LEFT
     i = startrow-1;
     j = startcol-1;
-    while (board.checkValidCoord(i, j))
+    while (board.isInbounds(i, j))
     {
       if (board.checkValidMove(piece, i, j))
         count++;
@@ -98,7 +101,7 @@ public abstract class ChessPiece
     //Move DOWN and RIGHT
     i = startrow-1;
     j = startcol+1;
-    while (board.checkValidCoord(i, j))
+    while (board.isInbounds(i, j))
     {
       if (board.checkValidMove(piece, i, j))
         count++;
@@ -109,7 +112,7 @@ public abstract class ChessPiece
     //Move UP and LEFT
     i = startrow+1;
     j = startcol-1;
-    while (board.checkValidCoord(i, j))
+    while (board.isInbounds(i, j))
     {
       if (board.checkValidMove(piece, i, j))
         count++;
@@ -120,7 +123,7 @@ public abstract class ChessPiece
     //Move UP and RIGHT
     i = startrow+1;
     j = startcol+1;
-    while (board.checkValidCoord(i, j))
+    while (board.isInbounds(i, j))
     {
       if (board.checkValidMove(piece, i, j))
         count++;
